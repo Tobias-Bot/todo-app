@@ -5,11 +5,16 @@ import Task from "./Task.js";
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tasks: [] };
+    this.state = { tasks: [], showImportant: false };
+
+    this.tasks = [];
 
     // Эта привязка обязательна для работы `this` в колбэке.
     this.createNewTask = this.createNewTask.bind(this);
     this.UpdateTask = this.UpdateTask.bind(this);
+    this.showTasks = this.showTasks.bind(this);
+    this.renderTasks = this.renderTasks.bind(this);
+    this.sortTasksByImportant = this.sortTasksByImportant.bind(this);
   }
 
   componentDidMount() {
@@ -90,6 +95,8 @@ class TodoList extends React.Component {
       {
         title: "",
         description: "",
+        color: "#fff",
+        isImportant: false,
       },
     ];
 
@@ -116,8 +123,24 @@ class TodoList extends React.Component {
     }));
   };
 
-  render() {
-    let tasks = this.state.tasks.map((item, i) => {
+  sortTasksByImportant() {
+    this.tasks = this.state.tasks.map((item, i) => {
+      return (
+        item.isImportant && (
+          <Task
+            key={i}
+            task={item}
+            index={i}
+            onTaskChange={this.UpdateTask}
+            onTaskDelete={this.deleteTask}
+          ></Task>
+        )
+      );
+    });
+  }
+
+  showTasks() {
+    this.tasks = this.state.tasks.map((item, i) => {
       return (
         <Task
           key={i}
@@ -128,15 +151,39 @@ class TodoList extends React.Component {
         ></Task>
       );
     });
+  }
+
+  renderTasks() {
+    let important = this.state.showImportant;
+
+    this.setState({ showImportant: !important });
+  }
+
+  render() {
+    let important = this.state.showImportant;
+
+    important ? this.showTasks() : this.sortTasksByImportant();
+
+    const star = !important ? (
+      <i className="fas fa-star"></i>
+    ) : (
+      <i className="far fa-star"></i>
+    );
 
     return (
       <div className="list">
-        {tasks}
+        {this.tasks}
+        <button className="btnAddTask" onClick={this.renderTasks}>
+          {star}
+        </button>
         <button className="btnAddTask" onClick={this.createNewTask}>
           <i className="fas fa-plus"></i>
         </button>
         <div className="logoText">
-          создано с ❤ в паблике <a className="source" href="https://vk.com/warmay">Май</a>
+          создано с ❤ в паблике{" "}
+          <a className="source" href="https://vk.com/warmay">
+            Май
+          </a>
         </div>
       </div>
     );

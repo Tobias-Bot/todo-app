@@ -7,6 +7,7 @@ class Task extends React.Component {
       title: this.props.task.title,
       description: this.props.task.description,
       color: this.props.task.color,
+      isImportant: this.props.task.isImportant,
     };
 
     this.colorInput = React.createRef();
@@ -16,6 +17,7 @@ class Task extends React.Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.ChangeTitle = this.ChangeTitle.bind(this);
     this.ChangeColor = this.ChangeColor.bind(this);
+    this.changeStatus = this.changeStatus.bind(this);
     this.colorInputClick = this.colorInputClick.bind(this);
     this.ChangeDescription = this.ChangeDescription.bind(this);
   }
@@ -47,6 +49,14 @@ class Task extends React.Component {
     });
   }
 
+  changeStatus() {
+    let status = this.state.isImportant;
+
+    this.setState({ isImportant: status ? false : true }, () => {
+      this.props.onTaskChange(this.state, this.props.index);
+    });
+  }
+
   deleteTask() {
     this.props.onTaskDelete(this.props.index);
   }
@@ -55,6 +65,14 @@ class Task extends React.Component {
     const taskColor = {
       backgroundColor: this.props.task.color,
     };
+
+    let isImportant = this.props.task.isImportant;
+
+    const star = isImportant ? (
+      <i className="fas fa-star"></i>
+    ) : (
+      <i className="far fa-star"></i>
+    );
 
     return (
       <div className="task" style={taskColor}>
@@ -80,6 +98,9 @@ class Task extends React.Component {
           </div>
           <div className="btnOption" onClick={this.colorInputClick}>
             <i className="fas fa-palette"></i>
+          </div>
+          <div className="btnOption" onClick={this.changeStatus}>
+            {star}
           </div>
           <input
             type="color"
