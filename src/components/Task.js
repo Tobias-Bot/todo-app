@@ -11,6 +11,7 @@ class Task extends React.Component {
 
     this.colorInput = React.createRef();
     this.taskText = React.createRef();
+    this.taskTitle = React.createRef();
 
     this.deleteTask = this.deleteTask.bind(this);
     this.ChangeTitle = this.ChangeTitle.bind(this);
@@ -20,6 +21,7 @@ class Task extends React.Component {
   }
 
   componentDidMount() {
+    this.taskTitle.current.innerHTML = this.props.task.title;
     this.taskText.current.innerHTML = this.props.task.description;
   }
 
@@ -28,7 +30,7 @@ class Task extends React.Component {
   }
 
   ChangeTitle(e) {
-    this.setState({ title: e.target.value }, () => {
+    this.setState({ title: e.target.innerHTML }, () => {
       this.props.onTaskChange(this.state, this.props.index);
     });
   }
@@ -57,24 +59,20 @@ class Task extends React.Component {
     return (
       <div className="task" style={taskColor}>
         <div className="taskMainInfo">
-          <textarea
+          <div
             className="taskTitle"
-            value={this.props.task.title}
+            contentEditable="true"
+            ref={this.taskTitle}
             placeholder="Заголовок"
-            onChange={this.ChangeTitle}
-          ></textarea>
+            onInput={this.ChangeTitle}
+          ></div>
           <div
             className="taskText"
             contentEditable="true"
             ref={this.taskText}
+            placeholder="Нет описания"
             onInput={this.ChangeDescription}
           ></div>
-          {/* <textarea
-            className="taskText"
-            value={this.props.task.description}
-            placeholder="Нет описания"
-            onChange={this.ChangeDescription}
-          ></textarea> */}
         </div>
         <div className="taskSettings">
           <div className="btnOption" onClick={this.deleteTask}>

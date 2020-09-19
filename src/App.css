@@ -12,7 +12,7 @@
 .task {
   position: relative;
   width: auto;
-  min-height: 150px;
+  min-height: 120px;
   border-radius: 5px;
   background-color: white;
   padding: 10px 15px 15px 12px;
@@ -28,6 +28,7 @@
   background-color: rgba(0, 0, 0, 0);
   resize: none;
   font-size: 23px;
+  font-weight: 500;
   outline: none;
 }
 
@@ -35,12 +36,16 @@
   width: 100%;
   border: none;
   resize: none;
+  padding: 8px;
   font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   outline: none;
 }
 
 .taskMainInfo {
-  width: 87%;
+  width: 85%;
   height: 100%;
 }
 
@@ -95,4 +100,20 @@
 .btnAddTask:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.taskTitle[placeholder]:empty:before {
+	content: attr(placeholder);
+	color: rgba(0, 0, 0, 0.5); 
+}
+.taskTitle[placeholder]:empty:focus:before {
+	content: '';
+}
+
+.taskText[placeholder]:empty:before {
+	content: attr(placeholder);
+	color: rgba(0, 0, 0, 0.5); 
+}
+.taskText[placeholder]:empty:focus:before {
+	content: '';
 }
