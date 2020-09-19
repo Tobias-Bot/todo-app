@@ -24,6 +24,7 @@
   width: 100%;
   margin-bottom: 4%;
   border: none;
+  resize: none;
   font-size: 25px;
   outline: none;
 }
@@ -31,6 +32,7 @@
 .taskText {
   width: 100%;
   border: none;
+  resize: none;
   font-size: 16px;
   outline: none;
 }
