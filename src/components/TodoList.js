@@ -13,7 +13,7 @@ class TodoList extends React.Component {
   }
 
   componentDidMount() {
-    this.getFromDB({ store: 'ToDoList', key: 'tasks' });
+    this.getFromDB({ store: "ToDoList", key: "tasks" });
   }
 
   componentDidUpdate() {
@@ -77,7 +77,7 @@ class TodoList extends React.Component {
       tx.oncomplete = () => {
         console.log(tasks.result);
         if (tasks.result) {
-          this.setState(prevState => {
+          this.setState((prevState) => {
             return { tasks: tasks.result };
           });
         }
@@ -104,7 +104,7 @@ class TodoList extends React.Component {
 
     tasks[index] = task;
 
-    this.setState({tasks});
+    this.setState({ tasks });
   }
 
   deleteTask = (index) => {
@@ -133,7 +133,7 @@ class TodoList extends React.Component {
       <div className="list">
         {tasks}
         <button className="btnAddTask" onClick={this.createNewTask}>
-          добавить задачу
+          <i className="fas fa-plus"></i>
         </button>
       </div>
     );
