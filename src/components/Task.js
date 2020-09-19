@@ -6,16 +6,21 @@ class Task extends React.Component {
     this.state = {
       title: this.props.task.title,
       description: this.props.task.description,
-      color: "#000",
+      color: this.props.task.color,
     };
 
     this.colorInput = React.createRef();
+    this.taskText = React.createRef();
 
     this.deleteTask = this.deleteTask.bind(this);
     this.ChangeTitle = this.ChangeTitle.bind(this);
     this.ChangeColor = this.ChangeColor.bind(this);
     this.colorInputClick = this.colorInputClick.bind(this);
     this.ChangeDescription = this.ChangeDescription.bind(this);
+  }
+
+  componentDidMount() {
+    this.taskText.current.innerHTML = this.props.task.description;
   }
 
   colorInputClick() {
@@ -29,7 +34,7 @@ class Task extends React.Component {
   }
 
   ChangeDescription(e) {
-    this.setState({ description: e.target.value }, () => {
+    this.setState({ description: e.target.innerHTML }, () => {
       this.props.onTaskChange(this.state, this.props.index);
     });
   }
@@ -58,7 +63,12 @@ class Task extends React.Component {
             placeholder="Заголовок"
             onChange={this.ChangeTitle}
           ></textarea>
-          <div contentEditable="true"></div>
+          <div
+            className="taskText"
+            contentEditable="true"
+            ref={this.taskText}
+            onInput={this.ChangeDescription}
+          ></div>
           {/* <textarea
             className="taskText"
             value={this.props.task.description}
@@ -73,7 +83,12 @@ class Task extends React.Component {
           <div className="btnOption" onClick={this.colorInputClick}>
             <i className="fas fa-palette"></i>
           </div>
-          <input type="color" ref={this.colorInput} hidden={true} onChange={this.ChangeColor} />
+          <input
+            type="color"
+            ref={this.colorInput}
+            hidden={true}
+            onChange={this.ChangeColor}
+          />
         </div>
       </div>
     );

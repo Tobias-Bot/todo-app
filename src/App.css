@@ -15,7 +15,7 @@
   min-height: 150px;
   border-radius: 5px;
   background-color: white;
-  padding: 10px;
+  padding: 10px 15px 15px 12px;
   margin: 3%;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
 }
@@ -27,7 +27,7 @@
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0);
   resize: none;
-  font-size: 25px;
+  font-size: 23px;
   outline: none;
 }
 
