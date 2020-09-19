@@ -135,6 +135,9 @@ class TodoList extends React.Component {
         <button className="btnAddTask" onClick={this.createNewTask}>
           <i className="fas fa-plus"></i>
         </button>
+        <div className="logoText">
+          создано с ❤ в паблике <a className="source" href="https://vk.com/warmay">Май</a>
+        </div>
       </div>
     );
   }

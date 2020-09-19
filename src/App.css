@@ -9,6 +9,24 @@
   background: rgba(0, 0, 0, 0.9);
 }
 
+.logoText {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.source {
+  font-weight: 600;
+  color: rgba(255, 205, 176, 0.8);
+  text-decoration: none;
+}
+
 .task {
   position: relative;
   width: auto;
