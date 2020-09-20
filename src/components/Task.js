@@ -102,7 +102,6 @@ class Task extends React.Component {
 
     return (
       <div className="task" style={taskColor}>
-        {this.props.index}
         <div className="taskMainInfo">
           <textarea
             className="taskTitle"
