@@ -27,6 +27,11 @@ class Task extends React.Component {
     this.taskText.current.innerHTML = this.props.task.description;
   }
 
+  componentDidUpdate() {
+    this.taskTitle.current.innerHTML = this.props.task.title;
+    this.taskText.current.innerHTML = this.props.task.description;
+  }
+
   colorInputClick() {
     this.colorInput.current.click();
   }

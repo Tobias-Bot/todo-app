@@ -21,18 +21,6 @@ class TodoList extends React.Component {
     this.getFromDB({ store: "ToDoList", key: "tasks" });
   }
 
-  componentDidUpdate() {
-    let data = this.state.tasks;
-
-    let StoreData = {
-      store: "ToDoList",
-      key: "tasks",
-      data,
-    };
-
-    this.updateDB(StoreData);
-  }
-
   updateDB(obj) {
     let openRequest = indexedDB.open(obj.store, 1);
 
@@ -82,10 +70,7 @@ class TodoList extends React.Component {
       tx.oncomplete = () => {
         console.log(tasks.result);
         if (tasks.result) {
-          this.setState((prevState) => {
-            return { tasks: tasks.result };
-          });
-
+          this.setState({ tasks: tasks.result });
           this.tasks = tasks.result;
         }
       };
@@ -98,7 +83,7 @@ class TodoList extends React.Component {
         title: "",
         description: "",
         color: "#fff",
-        isImportant: false,
+        isImportant: this.state.showImportant,
       },
     ];
 
@@ -112,16 +97,34 @@ class TodoList extends React.Component {
 
     tasks[index] = task;
 
-    this.setState({ tasks });
+    this.setState({ tasks }, () => {
+      let data = this.state.tasks;
+
+      let StoreData = {
+        store: "ToDoList",
+        key: "tasks",
+        data,
+      };
+
+      this.updateDB(StoreData);
+    });
   }
 
   deleteTask = (index) => {
     let tasks = this.state.tasks;
     tasks.splice(index, 1);
 
-    this.setState((state) => ({
-      tasks,
-    }));
+    this.setState({ tasks }, () => {
+      let data = this.state.tasks;
+
+      let StoreData = {
+        store: "ToDoList",
+        key: "tasks",
+        data,
+      };
+
+      this.updateDB(StoreData);
+    });
   };
 
   sortTasksByImportant() {
@@ -161,28 +164,32 @@ class TodoList extends React.Component {
   }
 
   render() {
-    let star = '';
+    let star = "";
     let important = this.state.showImportant;
-    let info = '';
-
-    console.log(this.items);
+    let info = "";
 
     if (important) {
       this.sortTasksByImportant();
-      info = <span>важные: <b>{this.items.length}</b></span>;
+      info = (
+        <span>
+          важные: <b>{this.items.filter((item) => item).length}</b>
+        </span>
+      );
       star = <i className="fas fa-star"></i>;
     } else {
       this.showTasks();
-      info = <span>всего задач: <b>{this.items.length}</b></span>;
+      info = (
+        <span>
+          всего задач: <b>{this.items.length}</b>
+        </span>
+      );
       star = <i className="far fa-star"></i>;
     }
 
     return (
       <div className="list">
-        <div className="infoBar">
-          {info}
-        </div>
-        {this.tasks}
+        <div className="infoBar">{info}</div>
+        {this.items}
         <div className="mainBtns">
           <button className="btnMains" onClick={this.renderTasks}>
             {star}
