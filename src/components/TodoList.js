@@ -7,7 +7,7 @@ class TodoList extends React.Component {
     super(props);
     this.state = { tasks: [], showImportant: false };
 
-    this.tasks = [];
+    this.items = [];
 
     // Эта привязка обязательна для работы `this` в колбэке.
     this.createNewTask = this.createNewTask.bind(this);
@@ -85,6 +85,8 @@ class TodoList extends React.Component {
           this.setState((prevState) => {
             return { tasks: tasks.result };
           });
+
+          this.tasks = tasks.result;
         }
       };
     };
@@ -106,7 +108,6 @@ class TodoList extends React.Component {
   }
 
   UpdateTask(task, index) {
-    console.log(task, index, this.state.tasks);
     let tasks = this.state.tasks;
 
     tasks[index] = task;
@@ -124,7 +125,7 @@ class TodoList extends React.Component {
   };
 
   sortTasksByImportant() {
-    this.tasks = this.state.tasks.map((item, i) => {
+    this.items = this.state.tasks.map((item, i) => {
       return (
         item.isImportant && (
           <Task
@@ -140,7 +141,7 @@ class TodoList extends React.Component {
   }
 
   showTasks() {
-    this.tasks = this.state.tasks.map((item, i) => {
+    this.items = this.state.tasks.map((item, i) => {
       return (
         <Task
           key={i}
@@ -160,25 +161,36 @@ class TodoList extends React.Component {
   }
 
   render() {
+    let star = '';
     let important = this.state.showImportant;
+    let info = '';
 
-    important ? this.showTasks() : this.sortTasksByImportant();
+    console.log(this.items);
 
-    const star = !important ? (
-      <i className="fas fa-star"></i>
-    ) : (
-      <i className="far fa-star"></i>
-    );
+    if (important) {
+      this.sortTasksByImportant();
+      info = <span>важные: <b>{this.items.length}</b></span>;
+      star = <i className="fas fa-star"></i>;
+    } else {
+      this.showTasks();
+      info = <span>всего задач: <b>{this.items.length}</b></span>;
+      star = <i className="far fa-star"></i>;
+    }
 
     return (
       <div className="list">
+        <div className="infoBar">
+          {info}
+        </div>
         {this.tasks}
-        <button className="btnAddTask" onClick={this.renderTasks}>
-          {star}
-        </button>
-        <button className="btnAddTask" onClick={this.createNewTask}>
-          <i className="fas fa-plus"></i>
-        </button>
+        <div className="mainBtns">
+          <button className="btnMains" onClick={this.renderTasks}>
+            {star}
+          </button>
+          <button className="btnMains" onClick={this.createNewTask}>
+            <i className="fas fa-plus"></i>
+          </button>
+        </div>
         <div className="logoText">
           создано с ❤ в паблике{" "}
           <a className="source" href="https://vk.com/warmay">
