@@ -109,14 +109,18 @@ class TodoList extends React.Component {
 
     tasks[index] = task;
 
-    this.setState({ tasks });
+    this.setState({ tasks }, () => {
+      console.log(tasks);
+    });
   }
 
   deleteTask = (index) => {
     let tasks = this.state.tasks;
     tasks.splice(index, 1);
 
-    this.setState({ tasks });
+    this.setState({ tasks }, () => {
+      console.log(tasks);
+    });
   };
 
   sortTasksByImportant() {

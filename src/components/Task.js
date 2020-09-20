@@ -22,51 +22,63 @@ class Task extends React.Component {
     this.ChangeDescription = this.ChangeDescription.bind(this);
   }
 
-  componentDidMount() {
-    this.taskTitle.current.innerText = this.props.task.title;
-    this.taskText.current.innerText = this.props.task.description;
-  }
-
-  componentDidUpdate() {
-    this.taskTitle.current.innerText = this.props.task.title;
-    this.taskText.current.innerText = this.props.task.description;
-
-    let el = this.taskTitle.current;
-
-    const range = document.createRange();
-    range.selectNodeContents(el);
-    range.collapse(false);
-    const sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-  }
+  // componentDidUpdate() {
+  //   this.taskTitle.current.value = this.props.task.title;
+  //   this.taskText.current.value = this.props.task.description;
+  // }
 
   colorInputClick() {
     this.colorInput.current.click();
   }
 
   ChangeTitle(e) {
-    this.setState({ title: e.target.innerHTML }, () => {
+    let state = {
+      title: e.target.value,
+      description: this.props.task.description,
+      color: this.props.task.color,
+      isImportant: this.props.task.isImportant,
+    }
+
+    this.setState(state, () => {
       this.props.onTaskChange(this.state, this.props.index);
     });
   }
 
   ChangeDescription(e) {
-    this.setState({ description: e.target.innerHTML }, () => {
+    let state = {
+      title: this.props.task.title,
+      description: e.target.value,
+      color: this.props.task.color,
+      isImportant: this.props.task.isImportant,
+    }
+
+    this.setState(state, () => {
       this.props.onTaskChange(this.state, this.props.index);
     });
   }
 
   ChangeColor(e) {
-    this.setState({ color: e.target.value }, () => {
+    let state = {
+      title: this.props.task.title,
+      description: this.props.task.description,
+      color: e.target.value,
+      isImportant: this.props.task.isImportant,
+    }
+
+    this.setState(state, () => {
       this.props.onTaskChange(this.state, this.props.index);
     });
   }
 
   changeStatus() {
-    let status = this.state.isImportant;
+    let state = {
+      title: this.props.task.title,
+      description: this.props.task.description,
+      color: this.props.task.color,
+      isImportant: !this.props.task.isImportant,
+    }
 
-    this.setState({ isImportant: status ? false : true }, () => {
+    this.setState(state, () => {
       this.props.onTaskChange(this.state, this.props.index);
     });
   }
@@ -90,21 +102,24 @@ class Task extends React.Component {
 
     return (
       <div className="task" style={taskColor}>
+        {this.props.index}
         <div className="taskMainInfo">
-          <div
+          <textarea
             className="taskTitle"
-            contentEditable="true"
-            ref={this.taskTitle}
             placeholder="Заголовок"
-            onInput={this.ChangeTitle}
-          ></div>
-          <div
+            rows="2"
+            ref={this.taskTitle}
+            value={this.props.task.title}
+            onChange={this.ChangeTitle}
+          ></textarea>
+          <textarea
             className="taskText"
-            contentEditable="true"
-            ref={this.taskText}
             placeholder="Нет описания"
-            onInput={this.ChangeDescription}
-          ></div>
+            rows="4"
+            ref={this.taskText}
+            value={this.props.task.description}
+            onChange={this.ChangeDescription}
+          ></textarea>
         </div>
         <div className="taskSettings">
           <div className="btnOption" onClick={this.deleteTask}>

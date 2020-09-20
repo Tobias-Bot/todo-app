@@ -47,7 +47,6 @@
 .task {
   position: relative;
   width: auto;
-  min-height: 120px;
   border-radius: 5px;
   background-color: white;
   padding: 10px 15px 15px 12px;
@@ -62,9 +61,10 @@
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0);
   resize: none;
-  font-size: 23px;
+  font-size: 22px;
   font-weight: 500;
   outline: none;
+  font-family: Arial;
 }
 
 .taskText {
@@ -77,6 +77,7 @@
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   outline: none;
+  font-family: Arial;
 }
 
 .taskMainInfo {
