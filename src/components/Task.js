@@ -23,13 +23,22 @@ class Task extends React.Component {
   }
 
   componentDidMount() {
-    this.taskTitle.current.innerHTML = this.props.task.title;
-    this.taskText.current.innerHTML = this.props.task.description;
+    this.taskTitle.current.innerText = this.props.task.title;
+    this.taskText.current.innerText = this.props.task.description;
   }
 
   componentDidUpdate() {
-    this.taskTitle.current.innerHTML = this.props.task.title;
-    this.taskText.current.innerHTML = this.props.task.description;
+    this.taskTitle.current.innerText = this.props.task.title;
+    this.taskText.current.innerText = this.props.task.description;
+
+    let el = this.taskTitle.current;
+
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 
   colorInputClick() {

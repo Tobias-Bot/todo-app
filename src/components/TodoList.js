@@ -21,6 +21,18 @@ class TodoList extends React.Component {
     this.getFromDB({ store: "ToDoList", key: "tasks" });
   }
 
+  componentDidUpdate() {
+    let data = this.state.tasks;
+
+    let StoreData = {
+      store: "ToDoList",
+      key: "tasks",
+      data,
+    };
+
+    this.updateDB(StoreData);
+  }
+
   updateDB(obj) {
     let openRequest = indexedDB.open(obj.store, 1);
 
@@ -97,34 +109,14 @@ class TodoList extends React.Component {
 
     tasks[index] = task;
 
-    this.setState({ tasks }, () => {
-      let data = this.state.tasks;
-
-      let StoreData = {
-        store: "ToDoList",
-        key: "tasks",
-        data,
-      };
-
-      this.updateDB(StoreData);
-    });
+    this.setState({ tasks });
   }
 
   deleteTask = (index) => {
     let tasks = this.state.tasks;
     tasks.splice(index, 1);
 
-    this.setState({ tasks }, () => {
-      let data = this.state.tasks;
-
-      let StoreData = {
-        store: "ToDoList",
-        key: "tasks",
-        data,
-      };
-
-      this.updateDB(StoreData);
-    });
+    this.setState({ tasks });
   };
 
   sortTasksByImportant() {
