@@ -256,18 +256,18 @@ class TodoList extends React.Component {
         </div>
         <div className="TaskList">{this.items}</div>
         <div className={appTheme[2]}>
-          создано с ❤ в паблике{" "}
+          сделано с ❤ в паблике{" "}
           <a className={appTheme[3]} href="https://vk.com/warmay">
             Май
           </a>
         </div>
         <div className={appTheme[4]}>
-          <button className="btnMains" onClick={this.renderTasks}>
+          <div className="btnMains" onClick={this.renderTasks}>
             {star}
-          </button>
-          <button className="btnMains" onClick={this.createNewTask}>
+          </div>
+          <div className="btnMains" onClick={this.createNewTask}>
             <i className="fas fa-plus"></i>
-          </button>
+          </div>
         </div>
       </div>
     );
