@@ -5,7 +5,7 @@ import Task from "./Task.js";
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tasks: [], showImportant: false };
+    this.state = { tasks: [], showImportant: false, theme: "white" };
 
     this.items = [];
 
@@ -14,11 +14,57 @@ class TodoList extends React.Component {
     this.UpdateTask = this.UpdateTask.bind(this);
     this.showTasks = this.showTasks.bind(this);
     this.renderTasks = this.renderTasks.bind(this);
+    this.turnSwitcher = this.turnSwitcher.bind(this);
+    //this.Sasha = this.Sasha.bind(this);
     this.sortTasksByImportant = this.sortTasksByImportant.bind(this);
   }
 
   componentDidMount() {
+    // let funcs = {
+    //   'Mark': function(name) {
+    //     console.log(`func ${name} is running`);
+    //   }
+    // }
+
+    // window.addEventListener("message", function(event) {
+    //   console.log("received: " + event.data.name);
+
+    //   let func = event.data.name
+
+    //   funcs[func](func);
+
+    //   event.data.name = 'Sasha [updated]';
+
+    //   window.top.postMessage(event.data, '*');
+    // });
+
+    /* getting tasks */
+
     this.getFromDB({ store: "ToDoList", key: "tasks" });
+
+    /* getting app's theme */
+
+    let theme = localStorage.getItem("AppTheme");
+
+    this.setState((state) => {
+      return {
+        theme,
+      };
+    });
+  }
+
+  turnSwitcher() {
+    let theme = this.state.theme;
+
+    theme = theme === "black" ? "white" : "black";
+
+    this.setState((state) => {
+      return {
+        theme,
+      };
+    });
+
+    localStorage.setItem("AppTheme", theme);
   }
 
   componentDidUpdate() {
@@ -80,7 +126,6 @@ class TodoList extends React.Component {
       let tasks = store.get(obj.key);
 
       tx.oncomplete = () => {
-        console.log(tasks.result);
         if (tasks.result) {
           this.setState({ tasks: tasks.result });
           this.tasks = tasks.result;
@@ -118,9 +163,7 @@ class TodoList extends React.Component {
     let tasks = this.state.tasks;
     tasks.splice(index, 1);
 
-    this.setState({ tasks }, () => {
-      console.log(tasks);
-    });
+    this.setState({ tasks });
   };
 
   sortTasksByImportant() {
@@ -164,6 +207,8 @@ class TodoList extends React.Component {
     let important = this.state.showImportant;
     let info = "";
 
+    /* sorting posts */
+
     if (important) {
       this.sortTasksByImportant();
       info = (
@@ -182,23 +227,47 @@ class TodoList extends React.Component {
       star = <i className="far fa-star"></i>;
     }
 
+    /* setting theme switcher position */
+
+    let theme = this.state.theme;
+
+    let switcher =
+      this.state.theme === "black" ? (
+        <i className="fas fa-toggle-on"></i>
+      ) : (
+        <i className="fas fa-toggle-off"></i>
+      );
+
+    /* setting app's theme */
+
+    let appTheme = ["BackGround", "infoBar", "logoText", "source", "mainBtns"];
+
+    if (theme === "black") appTheme = appTheme.map((el) => `${el} ${el}Black`);
+
+    console.log(appTheme);
+
     return (
-      <div className="list">
-        <div className="infoBar">{info}</div>
-        {this.items}
-        <div className="mainBtns">
+      <div className={appTheme[0]}>
+        <div className={appTheme[1]}>
+          {info}
+          <div className="ThemeSwitcher" onClick={this.turnSwitcher}>
+            {switcher}
+          </div>
+        </div>
+        <div className="TaskList">{this.items}</div>
+        <div className={appTheme[2]}>
+          создано с ❤ в паблике{" "}
+          <a className={appTheme[3]} href="https://vk.com/warmay">
+            Май
+          </a>
+        </div>
+        <div className={appTheme[4]}>
           <button className="btnMains" onClick={this.renderTasks}>
             {star}
           </button>
           <button className="btnMains" onClick={this.createNewTask}>
             <i className="fas fa-plus"></i>
           </button>
-        </div>
-        <div className="logoText">
-          создано с ❤ в паблике{" "}
-          <a className="source" href="https://vk.com/warmay">
-            Май
-          </a>
         </div>
       </div>
     );

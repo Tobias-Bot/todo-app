@@ -1,18 +1,49 @@
-.list {
+.BackGround {
   position: absolute;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
+  background: #F5F5F5;
+}
+
+.BackGroundBlack {
   background: rgba(0, 0, 0, 0.9);
 }
 
-.infoBar {
+.ThemeSwitcher {
+  float: right;
+  font-size: 25px;
+}
+
+.TaskList {
   position: relative;
+  width: 100%;
+  max-height: 70%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 10% 0;
+  padding-top: 10px;
+}
+
+.infoBar {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: 2% 6%;
-  border-radius: 0 0 30px 30px;
+  border-radius: 0 0 20px 20px;
+  font-size: 22px;
+  font-weight: 500;
+  color: black;
+  background: white;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+.infoBarBlack {
   color: white;
-  background: black;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 5px black;
 }
 
 .logoText {
@@ -21,26 +52,41 @@
   transform: translateX(-50%);
   width: 100%;
   text-align: center;
-  margin-top: 15%;
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.logoTextBlack {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .source {
   font-weight: 600;
-  color: rgba(255, 205, 176, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
 }
 
+.sourceBlack {
+  color: #FA8072;
+}
+
 .mainBtns {
-  position: fixed;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
   bottom: 0;
-  z-index: 1;
   width: 100%;
   padding: 3% 0 4% 0;
-  border-radius: 30px 30px 0 0;
+  border-radius: 20px 20px 0 0;
   text-align: center;
-  background: rgba(0, 0, 0, 0.9);
+  background: white;
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.3);
+}
+
+.mainBtnsBlack {
+  background: black;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.9);
 }
 
 .task {
@@ -50,7 +96,7 @@
   background-color: white;
   padding: 10px 15px 15px 12px;
   margin: 3%;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
 }
 
 .taskTitle {
@@ -111,31 +157,15 @@
   width: 50px;
   height: 50px;
   border-radius: 10px;
-  border: 2px solid white;
   color: white;
   font-size: 25px;
   outline: none;
-  background-color: rgba(0, 0, 0, 0.1);
-  margin: 0 2% 0 2%;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 0 2%;
+  box-shadow: 0 2px 5px black;
   transition: 0.1s all;
 }
 .btnMains:hover {
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.taskTitle[placeholder]:empty:before {
-	content: attr(placeholder);
-	color: rgba(0, 0, 0, 0.5); 
-}
-.taskTitle[placeholder]:empty:focus:before {
-	content: '';
-}
-
-.taskText[placeholder]:empty:before {
-	content: attr(placeholder);
-	color: rgba(0, 0, 0, 0.5); 
-}
-.taskText[placeholder]:empty:focus:before {
-	content: '';
+  background-color: rgba(0, 0, 0, 1);
 }
