@@ -2,6 +2,8 @@ import React from "react";
 
 import Task from "./Task.js";
 
+import logo from "../pics/logo.png";
+
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
@@ -154,9 +156,7 @@ class TodoList extends React.Component {
 
     tasks[index] = task;
 
-    this.setState({ tasks }, () => {
-      console.log(tasks);
-    });
+    this.setState({ tasks });
   }
 
   deleteTask = (index) => {
@@ -221,7 +221,7 @@ class TodoList extends React.Component {
       this.showTasks();
       info = (
         <span>
-          всего задач: <b>{this.items.length}</b>
+          заметки: <b>{this.items.length}</b>
         </span>
       );
       star = <i className="far fa-star"></i>;
@@ -247,26 +247,79 @@ class TodoList extends React.Component {
     console.log(appTheme);
 
     return (
-      <div className={appTheme[0]}>
-        <div className={appTheme[1]}>
-          {info}
-          <div className="ThemeSwitcher" onClick={this.turnSwitcher}>
-            {switcher}
+      <div>
+        <div
+          className="modal fade"
+          id="InfoModal"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="InfoBackground">
+                  Сделано с ❤ в паблике Май
+                  <br />
+                  <br />
+                  <img className="logo" src={logo} alt="May logo" />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  Проблемы с приложением, хочешь предложить что-то поменять или
+                  просто с нами поболтать? Напиши нам!
+                  <br />
+                  <br />
+                  <button className="btnGoToMay">
+                    <a
+                      className="linkInBtn"
+                      href="https://vk.com/im?sel=-160404048"
+                    >
+                      написать
+                    </a>
+                  </button>
+                  <br />
+                  <br />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="TaskList">{this.items}</div>
-        <div className={appTheme[2]}>
-          сделано с ❤ в паблике{" "}
-          <a className={appTheme[3]} href="https://vk.com/warmay">
-            Май
-          </a>
-        </div>
-        <div className={appTheme[4]}>
-          <div className="btnMains" onClick={this.renderTasks}>
-            {star}
+
+        <div className={appTheme[0]}>
+          <div className={appTheme[1]}>
+            {info}
+            <div className="ThemeSwitcher" onClick={this.turnSwitcher}>
+              {switcher}
+            </div>
           </div>
-          <div className="btnMains" onClick={this.createNewTask}>
-            <i className="fas fa-plus"></i>
+          <div className="TaskList">{this.items}</div>
+          <div className={appTheme[4]}>
+            <div
+              className="btnMains"
+              data-toggle="modal"
+              data-target="#InfoModal"
+            >
+              <i className="fas fa-info"></i>
+            </div>
+            <div className="btnMains" onClick={this.renderTasks}>
+              {star}
+            </div>
+            <div className="btnMains" onClick={this.createNewTask}>
+              <i className="fas fa-plus"></i>
+            </div>
           </div>
         </div>
       </div>

@@ -6,6 +6,33 @@
   background: #F5F5F5;
 }
 
+.InfoBackground {
+  text-align: center;
+}
+
+.logo {
+  width: 128px;
+}
+
+.linkInBtn{
+  color: black;
+  text-decoration: none;
+}
+.linkInBtn:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.btnGoToMay {
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 20px;
+  text-align: center;
+  outline: none;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
 .BackGroundBlack {
   background: rgba(0, 0, 0, 0.9);
 }
@@ -16,18 +43,18 @@
 }
 
 .TaskList {
-  position: relative;
+  position: fixed;
+  top: 0;
   width: 100%;
-  max-height: 76vh;
+  max-height: 90vh;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-top: 50px;
+  padding-top: 60px;
   padding-bottom: 60px;
-  margin-bottom: 50px;
 }
 
 .infoBar {
-  position: absolute;
+  position: fixed;
   z-index: 5;
   top: 0;
   left: 0;
@@ -72,7 +99,7 @@
 }
 
 .mainBtns {
-  position: absolute;
+  position: fixed;
   z-index: 5;
   left: 0;
   right: 0;
@@ -157,7 +184,7 @@
   position: relative;
   display: inline-block;
   width: 50px;
-  margin: 0 3vw;
+  margin: 0 2vw;
   padding: 5px;
   border-radius: 10px;
   color: rgba(0, 0, 0, 0.8);
